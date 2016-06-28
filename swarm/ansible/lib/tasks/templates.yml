@@ -1,0 +1,6 @@
+- name: Templates are present
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items: templates

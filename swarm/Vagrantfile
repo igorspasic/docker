@@ -1,0 +1,67 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  #xenial64 is not completely ready yet
+  #config.vm.box = "ubuntu/xenial64"
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.synced_folder ".", "/vagrant"
+  config.vm.box_check_update = false
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+
+  config.vm.provision "shell", path: "vagrant/bootstrap.sh"
+
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+  ##
+  ## NODES
+  ##
+
+  (1..2).each do |i|
+    config.vm.define "swarm-node-#{i}" do |node|
+      node.vm.hostname = "swarm-node-#{i}"
+      node.vm.network "private_network", ip: "10.100.7.#{100 + i}"
+    end
+  end
+
+  ##
+  ## MASTER
+  ##
+
+  config.vm.define "swarm-master" do |master|
+    master.vm.hostname = "swarm-master"
+    master.vm.network "private_network", ip: "10.100.7.10"
+    master.vm.network "forwarded_port", guest: 2376, host: 23760
+    master.vm.network "forwarded_port", guest: 2375, host: 23750
+    master.vm.provider "virtualbox" do |v|
+      v.memory = 2048
+    end
+
+    ## Swarm Master is also Ansible Management Node
+
+    master.vm.provision "shell", path: "vagrant/bootstrap_ansible.sh"
+
+    # alternative provisioning, using "Vagrant ansible_local".
+    # However, it is recommended not to use this, as in production
+    # we are going to use ansible in different ways
+
+    #master.vm.provision :ansible_local do |ansible|
+    #  ansible.playbook       = "ansible/all.yml"
+    #  ansible.verbose        = true
+    #  ansible.install        = true
+    #  ansible.limit          = "all" # or only "nodes" group, etc.
+    #  ansible.inventory_path = "ansible/hosts/prod"
+    #end
+
+  end
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = "box"
+  end
+end

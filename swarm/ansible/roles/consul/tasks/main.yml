@@ -1,0 +1,31 @@
+- include: "{{ a_lib_tasks }}/dirs.yml"
+  tags: [consul]
+
+- include: "{{ a_lib_tasks }}/files.yml"
+  tags: [consul]
+
+- include: "{{ a_lib_tasks }}/templates.yml"
+  when: consul_master_ip is defined
+  tags: [consul]
+
+- name: Watchers are present
+  copy:
+    src: watchers.json
+    dest: /consul/scripts/watchers.json
+    mode: 0644
+  when: not consul_master_ip is defined
+  tags: [consul]
+
+- name: Server is started
+  docker_service:
+    project_src: /consul/docker
+    files: [docker-compose-server.yml]
+  when: not consul_master_ip is defined
+  tags: [consul]
+
+- name: Agent is started
+  docker_service:
+    project_src: /consul/docker
+    files: [docker-compose-agent.yml]
+  when: consul_master_ip is defined
+  tags: [consul]

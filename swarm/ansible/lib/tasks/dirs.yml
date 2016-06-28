@@ -1,0 +1,6 @@
+
+- name: Directories are present
+  file:
+    dest: "{{ item }}"
+    state: directory
+  with_items: "{{ dirs | default(directories) }}"

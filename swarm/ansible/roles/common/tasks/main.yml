@@ -1,0 +1,22 @@
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  register: result
+  until: result|success
+  retries: 10
+  tags: [common]
+
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+  tags: [common]
+
+- name: Dependencies are present
+  apt: >
+      pkg={{item}}
+      state=installed
+  with_items:
+    - unzip
+    - jq
+  tags: [common]

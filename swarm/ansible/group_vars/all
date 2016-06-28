@@ -1,0 +1,4 @@
+host: "{{ ip }}"
+
+# ansible lib folder for roles
+a_lib_tasks: "../../lib/tasks"

@@ -1,0 +1,6 @@
+ip: 10.100.7.10
+hostname: swarm-master
+
+ansible_connection: local
+
+swarm_master: true

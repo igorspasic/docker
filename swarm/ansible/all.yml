@@ -1,0 +1,12 @@
+- hosts: all
+  remote_user: vagrant
+  become: yes
+  roles:
+    - common
+    - java
+
+- include: compose.yml
+
+- include: consul.yml
+
+- include: swarm.yml
