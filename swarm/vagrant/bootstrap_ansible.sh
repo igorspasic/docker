@@ -2,8 +2,7 @@
 
 ## script for installing Ansible on Ubuntu
 
-export DEBIAN_FRONTEND=noninteractive
-
+./bootstrap.sh
 
 echo ">>> Installing Ansible..."
 

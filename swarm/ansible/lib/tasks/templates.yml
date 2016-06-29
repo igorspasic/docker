@@ -1,3 +1,4 @@
+
 - name: Templates are present
   template:
     src: "{{ item.src }}"
