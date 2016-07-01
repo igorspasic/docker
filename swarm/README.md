@@ -12,13 +12,19 @@
 
 ## Prerequisites
 
+Optional:
+
 	vagrant plugin install vagrant-cachier
+	vagrant plugin install vagrant-hostsupdater
 
 ## VMs
 
 Create the VMs:
 
 	vagrant up swarm-master /swarm-node-[1-2]/
+
+If `vagrant-hostsupdater` is used then administrative access is required.
+
 
 ## Infrastructure
 
@@ -29,9 +35,27 @@ Now that the VMs are created, let's go inside the `swarm-master`
 
 	ansible-playbook /vagrant/ansible/all.yml -i /vagrant/ansible/hosts/prod
 
+**First time only:** log out and log in to use `docker` in command line.
+
+
 ### Reset everything
 
 	vagrant destroy -f
+
+## Usage
+
+Once when everything is up:
+
++ [Consul Status](http://swarm-master:8500/v1/health/service/consul?pretty)
++ [Consul UI](http://swarm-master:8500/ui/)
+
+Local docker:
+
+	docker ps info
+
+Swarm:
+
+	docker -H :4000 info
 
 ## Issues
 

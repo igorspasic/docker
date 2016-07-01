@@ -2,7 +2,7 @@ version: '2'
 services:
   server:
     image: consul:v0.6.4
-    command: agent -server -client=0.0.0.0 -bootstrap-expect=1 -ui -ui-dir /data/consul/ui
+    command: agent -server -client=0.0.0.0 -bootstrap-expect=1 -ui
     restart: always
     environment:
       - 'CONSUL_LOCAL_CONFIG={"rejoin_after_leave": false}'

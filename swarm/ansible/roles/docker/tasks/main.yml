@@ -1,4 +1,4 @@
-- name: Debian add Docker repository and update apt cache
+- name: Add Docker repository and update apt cache
   apt_repository:
     repo: deb https://apt.dockerproject.org/repo ubuntu-trusty main
     update_cache: yes
@@ -8,35 +8,28 @@
   retries: 10
   tags: [docker]
 
-- name: Debian Docker is present
+- name: Install Docker engine
   apt:
     name: docker-engine
     state: latest
     force: yes
   tags: [docker]
 
-- name: Debian python-pip is present
+- name: Install python-pip
   apt: name=python-pip state=present
   tags: [docker]
 
-- name: Debian docker-py is present
+- name: Install docker-py
   pip:
     name: docker-py
     version: 1.8.1
     state: present
   tags: [docker]
 
-- name: vagrant user is added to the docker group
+- name: Add vagrant user to the docker group
   user:
     name: vagrant
     group: docker
-  register: user_result
-  tags: [docker]
-
-# todo move to notify and handlers
-- name: Debian Docker service is restarted
-  service:
-    name: docker
-    state: restarted
-  when: user_result|changed
+  notify:
+    - Restart Docker
   tags: [docker]

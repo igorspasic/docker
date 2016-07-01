@@ -10,42 +10,38 @@
   when: swarm_master is defined
   tags: [swarm]
 
-- name: Obsolete Docker init.d service is removed
+- name: Remove obsolete Docker init.d service
   file:
     dest: /etc/init.d/docker
     state: absent
   tags: [swarm]
 
-- name: Configuration is present
+- name: Update Docker configuration
   copy:
     src: docker.cfg
     dest: /etc/default/docker
-  register: config_result
+  notify:
+    - Restart Docker
   when: not swarm_master is defined
   tags: [swarm]
 
-- name: Service is restarted
-  service:
-    name: docker
-    state: restarted
-  when: config_result|changed
-  tags: [swarm]
-
-- name: Swarm node is running
-  docker:
-    name: swarm-node
-    image: swarm
-    command: join --advertise={{ ip }}:2375 consul://{{ ip }}:8500/swarm
-  when: not swarm_master is defined
-  tags: [swarm]
-
-- name: Swarm master is running
+- name: Run Swarm master
   docker:
     name: swarm-master
     image: swarm
-    ports: 2375:2375
-    command: manage consul://{{ ip }}:8500/swarm
+    ports: 4000:4000
+    expose:
+      - 4000
+    command: manage -H :4000 -advertise {{ ip }}:4000 consul://{{ ip }}:8500/myswarm
     env:
       SERVICE_ID: swarm-master
   when: swarm_master is defined
+  tags: [swarm]
+
+- name: Run Swarm node
+  docker:
+    name: swarm-node
+    image: swarm
+    command: join --advertise={{ ip }}:4000 consul://{{ ip }}:8500/myswarm
+  when: not swarm_master is defined
   tags: [swarm]
