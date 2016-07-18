@@ -6,3 +6,8 @@ master_scripts:
   - src: "swarm_get_ip.sh"
     dest: "/data/scripts/swarm_get_ip.sh"
     mode: "0755"
+
+templates:
+  - src: "docker.cfg.j2"
+    dest: "/docker.cfg"
+    mode: "0644"

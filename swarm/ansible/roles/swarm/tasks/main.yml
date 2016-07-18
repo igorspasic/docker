@@ -10,6 +10,9 @@
   when: swarm_master is defined
   tags: [swarm]
 
+- include: "{{ a_lib_tasks }}/templates.yml"
+  tags: [swarm]
+
 - name: Remove obsolete Docker init.d service
   file:
     dest: /etc/init.d/docker
@@ -18,7 +21,7 @@
 
 - name: Update Docker configuration
   copy:
-    src: docker.cfg
+    src: /docker.cfg
     dest: /etc/default/docker
   notify:
     - Restart Docker
@@ -26,22 +29,32 @@
   tags: [swarm]
 
 - name: Run Swarm master
-  docker:
-    name: swarm-master
-    image: swarm
-    ports: 4000:4000
-    expose:
-      - 4000
-    command: manage -H :4000 -advertise {{ ip }}:4000 consul://{{ ip }}:8500/myswarm
-    env:
-      SERVICE_ID: swarm-master
+  docker_service:
+    project_name: swarm-master
+    definition:
+      version: '2'
+      services:
+        swarm-master:
+          image: swarm
+          command: manage -H :4000 --advertise {{ ip }}:4000 consul://{{ ip }}:8500/myswarm
+          restart: unless-stopped
+          ports:
+            - 4000:4000
+          expose:
+            - 4000
+          volumes:
+            - /etc/docker/tls:/etc/docker/tls
   when: swarm_master is defined
   tags: [swarm]
 
 - name: Run Swarm node
-  docker:
-    name: swarm-node
-    image: swarm
-    command: join --advertise={{ ip }}:4000 consul://{{ ip }}:8500/myswarm
+  docker_service:
+    project_name: swarm-node
+    definition:
+      version: '2'
+      services:
+        swarm-node:
+          image: swarm
+          command: join --advertise={{ ip }}:2375 consul://{{ consul_master_ip }}:8500/myswarm
   when: not swarm_master is defined
   tags: [swarm]

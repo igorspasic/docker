@@ -37,7 +37,6 @@ Now that the VMs are created, let's go inside the `swarm-master`
 
 **First time only:** log out and log in to use `docker` in command line.
 
-
 ### Reset everything
 
 	vagrant destroy -f
@@ -49,13 +48,14 @@ Once when everything is up:
 + [Consul Status](http://swarm-master:8500/v1/health/service/consul?pretty)
 + [Consul UI](http://swarm-master:8500/ui/)
 
-Local docker:
-
-	docker ps info
-
-Swarm:
+Use docker on `swarm-master`:
 
 	docker -H :4000 info
+
+Use docker on `swarm-node-1`:
+
+	docker -H :2375 info
+
 
 ## Issues
 
