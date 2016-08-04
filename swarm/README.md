@@ -1,4 +1,4 @@
-# Docker swarm
+# Docker Swarm
 
 + Vagrant
 + Ansible
@@ -48,9 +48,14 @@ Once when everything is up:
 + [Consul Status](http://swarm-master:8500/v1/health/service/consul?pretty)
 + [Consul UI](http://swarm-master:8500/ui/)
 
-Use docker on `swarm-master`:
+Use docker on `swarm-master` (local):
+
+	docker info
+
+Use docker on `swarm-master` (swarm):
 
 	docker -H :4000 info
+	docker -H :4000 ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 
 Use docker on `swarm-node-1`:
 

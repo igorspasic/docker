@@ -4,8 +4,8 @@
   roles:
     - common
 #    - java
-
-- include: compose.yml
+    - docker
+    - compose
 
 - include: consul.yml
 

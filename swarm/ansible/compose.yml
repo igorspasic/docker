@@ -1,6 +1,0 @@
-- hosts: compose
-  remote_user: vagrant
-  become: yes
-  roles:
-    - docker
-    - compose
