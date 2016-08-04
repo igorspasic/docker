@@ -1,4 +1,3 @@
-
 - name: Remove obsolete Docker init.d service
   file:
     dest: /etc/init.d/docker

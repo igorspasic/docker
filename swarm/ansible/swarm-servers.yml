@@ -5,7 +5,6 @@
   become: yes
   roles:
     - docker
-    - consul
     - {
         role: swarm,
         is_swarm_master: "{{ 'swarm-master' in group_names }}",

@@ -1,0 +1,11 @@
+
+- name: Watchers are present
+  copy:
+    src: watchers.json
+    dest: /consul/scripts/watchers.json
+    mode: 0644
+
+- name: Start Consul server
+  docker_service:
+    project_src: /consul/docker
+    files: [docker-compose-server.yml]

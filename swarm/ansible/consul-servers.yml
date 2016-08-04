@@ -1,0 +1,13 @@
+
+- hosts: consul-master, consul-agents
+  serial: 1
+  remote_user: vagrant
+  become: yes
+  roles:
+    - docker
+    - {
+        role: consul,
+        is_consul_master: "{{ 'consul-master' in group_names }}",
+        is_consul_agent: "{{ 'consul-agents' in group_names }}",
+        tags: ['consul']
+      }

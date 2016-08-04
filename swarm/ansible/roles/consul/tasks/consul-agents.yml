@@ -1,0 +1,7 @@
+
+- include: "{{ a_lib_tasks }}/templates.yml"
+
+- name: Start Consul Agent
+  docker_service:
+    project_src: /consul/docker
+    files: [docker-compose-agent.yml]

@@ -7,6 +7,6 @@
     - docker
     - compose
 
-- include: consul.yml
+- include: consul-servers.yml
 
 - include: swarm-servers.yml
