@@ -3,4 +3,5 @@ hostname: swarm-master
 
 ansible_connection: local
 
+consul_master: true
 swarm_master: true

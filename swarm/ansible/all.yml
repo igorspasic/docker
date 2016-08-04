@@ -9,4 +9,4 @@
 
 - include: consul.yml
 
-- include: swarm.yml
+- include: swarm-servers.yml

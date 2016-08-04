@@ -16,7 +16,7 @@
   when: not consul_master_ip is defined
   tags: [consul]
 
-- name: Server is started
+- name: Start Consul server
   docker_service:
     project_src: /consul/docker
     files: [docker-compose-server.yml]

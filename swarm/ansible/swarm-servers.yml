@@ -1,0 +1,14 @@
+
+- hosts: swarm-master, swarm-nodes
+  serial: 1
+  remote_user: vagrant
+  become: yes
+  roles:
+    - docker
+    - consul
+    - {
+        role: swarm,
+        is_swarm_master: "{{ 'swarm-master' in group_names }}",
+        is_swarm_node: "{{ 'swarm-nodes' in group_names }}",
+        tags: ['swarm']
+      }

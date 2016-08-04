@@ -12,11 +12,4 @@
 #  apt: name=software-properties-common state=latest
 #  tags: [common]
 
-- name: Dependencies are present
-  apt: >
-      pkg={{item}}
-      state=installed
-  with_items:
-    - unzip
-    - jq
-  tags: [common]
+- include: dependencies.yml

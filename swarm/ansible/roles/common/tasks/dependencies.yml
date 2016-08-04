@@ -1,0 +1,9 @@
+
+- name: Install various dependencies
+  apt: >
+      pkg={{item}}
+      state=installed
+  with_items:
+    - unzip
+    - jq
+  tags: [common]
