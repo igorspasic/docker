@@ -8,14 +8,17 @@
 ## TODO
 
 + [ ] Use [Dynamic Inventory](http://docs.ansible.com/ansible/intro_dynamic_inventory.html)
-+ [ ] Remove some variables from hosts
 
 ## Prerequisites
 
-Optional:
+Optional, but recommended:
 
 	vagrant plugin install vagrant-cachier
 	vagrant plugin install vagrant-hostsupdater
+
+Required for Ubuntu 16.04:
+
+	vagrant plugin install vagrant-vbguest
 
 ## VMs
 
@@ -30,7 +33,6 @@ If `vagrant-hostsupdater` is used then administrative access is required.
 
 Now that the VMs are created, let's go inside the `swarm-master`
 
-	vagrant up
 	vagrant ssh swarm-master
 
 	ansible-playbook /vagrant/ansible/all.yml -i /vagrant/ansible/hosts/prod

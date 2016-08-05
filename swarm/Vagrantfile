@@ -5,10 +5,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  #xenial64 is not completely ready yet
-  #config.vm.box = "ubuntu/xenial64"
-
+# xenial vagrant image is simply not yet ready
+#  config.vm.box = "ubuntu/xenial64"
   config.vm.box = "ubuntu/trusty64"
+
   config.vm.synced_folder ".", "/vagrant"
   config.vm.box_check_update = false
   config.vm.provider "virtualbox" do |v|
@@ -28,6 +28,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "swarm-node-#{i}" do |node|
       node.vm.hostname = "swarm-node-#{i}"
       node.vm.network "private_network", ip: "10.100.7.#{100 + i}"
+      node.vm.provider "virtualbox" do |vb|
+#        vb.name = "ubuntu-xenial-16.04-cloudimg-node-#{i}"
+      end
     end
   end
 
@@ -39,8 +42,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     master.vm.hostname = "swarm-master"
     master.vm.network "private_network", ip: "10.100.7.10"
     master.vm.network "forwarded_port", guest: 8500, host: 8500
-    master.vm.provider "virtualbox" do |v|
-      v.memory = 2048
+    master.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+#      vb.name = "ubuntu-xenial-16.04-cloudimg-master"
     end
 
     ## Swarm Master is also Ansible Management Node

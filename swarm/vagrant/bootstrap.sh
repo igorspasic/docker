@@ -2,6 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-echo ">>> Bootstrapping Vagrant..."
+echo ">>> Bootstrap Vagrant..."
 
+rm -r /var/cache/apt /var/lib/apt/lists
 apt-get update -y
