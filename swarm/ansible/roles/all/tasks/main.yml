@@ -13,3 +13,7 @@
 #  tags: [common]
 
 - include: dependencies.yml
+
+- include: docker.yml
+
+- include: docker-compose.yml

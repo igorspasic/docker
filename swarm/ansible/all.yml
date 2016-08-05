@@ -1,12 +1,27 @@
+
 - hosts: all
   remote_user: vagrant
   become: yes
   roles:
-    - common
-#    - java
-    - docker
-    - compose
+    - all
 
-- include: consul-servers.yml
+- hosts: wmaster
+  serial: 1
+  remote_user: vagrant
+  become: yes
+  roles:
+    - all
+    - consul
+    - swarm
+  vars:
+    - consul_master: true
+    - swarm_master: true
 
-- include: swarm-servers.yml
+- hosts: wnodes
+  serial: 1
+  remote_user: vagrant
+  become: yes
+  roles:
+    - all
+    - consul
+    - swarm

@@ -10,3 +10,8 @@
 
 - name: "Install docker-compose package"
   pip: name=docker-compose
+
+#  apt:
+#    name: docker-compose
+#    state: latest
+#    force: yes

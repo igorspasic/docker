@@ -1,12 +1,6 @@
 
-[consul-master]
+[wmaster]
 10.100.7.10
 
-[consul-agents]
-10.100.7.[101:102]
-
-[swarm-master]
-10.100.7.10
-
-[swarm-nodes]
+[wnodes]
 10.100.7.[101:102]

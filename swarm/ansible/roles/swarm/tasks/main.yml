@@ -1,10 +1,11 @@
+
 - name: Remove obsolete Docker init.d service
   file:
     dest: /etc/init.d/docker
     state: absent
 
 - include: swarm-master.yml
-  when: is_swarm_master
+  when: swarm_master is defined
 
 - include: swarm-nodes.yml
-  when: is_swarm_node
+  when: swarm_master is undefined

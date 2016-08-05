@@ -4,7 +4,7 @@
   remote_user: vagrant
   become: yes
   roles:
-    - docker
+    - all
     - {
         role: swarm,
         is_swarm_master: "{{ 'swarm-master' in group_names }}",

@@ -1,9 +1,10 @@
+
 - include: "{{ a_lib_tasks }}/dirs.yml"
 
 - include: "{{ a_lib_tasks }}/files.yml"
 
 - include: consul-master.yml
-  when: is_consul_master
+  when: consul_master is defined
 
 - include: consul-agents.yml
-  when: is_consul_agent
+  when: consul_master is undefined

@@ -1,5 +1,5 @@
 
-- name: Watchers are present
+- name: Prepare Watchers
   copy:
     src: watchers.json
     dest: /consul/scripts/watchers.json

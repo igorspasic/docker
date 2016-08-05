@@ -4,7 +4,7 @@
   remote_user: vagrant
   become: yes
   roles:
-    - docker
+    - all
     - {
         role: consul,
         is_consul_master: "{{ 'consul-master' in group_names }}",
