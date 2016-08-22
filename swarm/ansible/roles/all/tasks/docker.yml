@@ -7,25 +7,21 @@
   register: result
   until: result|success
   retries: 10
-  tags: [docker]
 
 - name: Install Docker engine
   apt:
     name: docker-engine
     state: latest
     force: yes
-  tags: [docker]
 
 - name: Install python-pip
   apt: name=python-pip state=present
-  tags: [docker]
 
 - name: Install docker-py
   pip:
     name: docker-py
     version: 1.9.0
     state: present
-  tags: [docker]
 
 - name: Add vagrant user to the docker group
   user:
@@ -33,4 +29,3 @@
     group: docker
   notify:
     - Restart Docker
-  tags: [docker]
