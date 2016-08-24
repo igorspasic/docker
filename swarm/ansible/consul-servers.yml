@@ -1,4 +1,6 @@
 
+# not used
+
 - hosts: consul-master, consul-agents
   serial: 1
   remote_user: vagrant

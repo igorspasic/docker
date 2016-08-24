@@ -12,6 +12,7 @@
   roles:
     - all
     - consul
+    - efk
     - swarm
   vars:
     - consul_master: true

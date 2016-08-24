@@ -1,0 +1,7 @@
+directories:
+  - /efk
+
+files:
+  - src: "docker"
+    dest: "/efk"
+    mode: "0744"

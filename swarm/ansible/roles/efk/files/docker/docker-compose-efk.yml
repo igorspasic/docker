@@ -1,0 +1,31 @@
+version: '2'
+services:
+  efk-elasticsearch:
+    image: elasticsearch:latest
+    command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+      - "9200"
+      - "9300"
+    restart: always
+    container_name: efk-es
+
+  efk-kibana:
+    build: kibana/
+    volumes:
+      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+    ports:
+      - "5601:5601"
+    restart: always
+    container_name: efk-kibana
+    links:
+      - efk-elasticsearch
+
+  efk-fluentd:
+    build: fluentd/
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    restart: always
+    container_name: efk-fluentd
+    links:
+      - efk-elasticsearch

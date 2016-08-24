@@ -1,4 +1,6 @@
 
+# not used
+
 - hosts: swarm-master, swarm-nodes
   serial: 1
   remote_user: vagrant

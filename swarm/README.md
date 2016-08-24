@@ -3,6 +3,7 @@
 + Vagrant
 + Ansible
 + Consul
++ EFK stack
 + Swarm
 
 ## TODO
@@ -49,6 +50,7 @@ Once when everything is up:
 
 + [Consul Status](http://swarm-master:8500/v1/health/service/consul?pretty)
 + [Consul UI](http://swarm-master:8500/ui/)
++ [Kibana](http://swarm-master:5601)
 
 Use docker on `swarm-master` (local):
 

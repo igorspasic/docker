@@ -1,0 +1,5 @@
+
+- name: Start EFK stack
+  docker_service:
+    project_src: /efk/docker
+    files: [docker-compose-efk.yml]
