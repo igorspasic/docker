@@ -1,5 +1,5 @@
 
-- name: Templates are present
+- name: Templates
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

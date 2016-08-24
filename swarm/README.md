@@ -3,7 +3,7 @@
 + Vagrant
 + Ansible
 + Consul
-+ EFK stack
++ EFK
 + Swarm
 
 ## TODO
@@ -65,6 +65,11 @@ Use docker on `swarm-node-1`:
 
 	docker -H :2375 info
 
+### Docker service
+
+Service log: `/var/log/upstart/docker.log`
+
+Start service: `sudo start docker`
 
 ## Issues
 
