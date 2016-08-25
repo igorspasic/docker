@@ -1,0 +1,23 @@
+
+global:
+
+  scrape_interval:      15s # By default, scrape targets every 15 seconds.
+  evaluation_interval:  15s # By default, scrape targets every 15 seconds.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these extra labels to all time-series collected by this Prometheus instance.
+  external_labels:
+    monitor: 'swarm-monitor'
+
+rule_files:
+#  - '/etc/prometheus/alert.rules'
+
+scrape_configs:
+
+  # Swarm
+  - job_name: 'swarm'
+    scrape_interval:  10s
+    scrape_timeout:   10s
+
+    consul_sd_configs:
+      - server: '{{ consul_master_ip }}:8500'

@@ -12,6 +12,7 @@
   roles:
     - all
     - consul
+    - monitor
     - efk
     - swarm
   vars:
@@ -25,4 +26,5 @@
   roles:
     - all
     - consul
+    - monitor-node
     - swarm

@@ -1,3 +1,3 @@
 DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"
-DOCKER_OPTS="$DOCKER_OPTS --cluster-store=consul://{{ ip }}:8500/myswarm --cluster-advertise=eth1:2375"
+DOCKER_OPTS="$DOCKER_OPTS --cluster-store=consul://{{ consul_master_ip }}:8500/myswarm --cluster-advertise=eth1:2375"
 DOCKER_OPTS="$DOCKER_OPTS --log-driver=fluentd --log-opt fluentd-address={{ fluentd_ip }}:24225 --log-opt tag=docker.{{ '{{' }}.ID{{ '}}' }}"

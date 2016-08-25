@@ -1,0 +1,9 @@
+templates:
+  - src: "prometheus.yml.j2"
+    dest: "/prometheus.yml"
+    mode: "0644"
+
+files:
+  - src: "docker"
+    dest: "/prometheus"
+    mode: "0744"

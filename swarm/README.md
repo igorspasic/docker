@@ -4,10 +4,13 @@
 + Ansible
 + Consul
 + EFK
++ Promethus
 + Swarm
 
 ## TODO
 
++ [ ] Prometheus targets
++ [ ] Make Kibana work (index)
 + [ ] Use [Dynamic Inventory](http://docs.ansible.com/ansible/intro_dynamic_inventory.html)
 
 ## Prerequisites
@@ -50,6 +53,7 @@ Once when everything is up:
 
 + [Consul Status](http://swarm-master:8500/v1/health/service/consul?pretty)
 + [Consul UI](http://swarm-master:8500/ui/)
++ [Prometheus](http://swarm-master:9090)
 + [Kibana](http://swarm-master:5601)
 
 Use docker on `swarm-master` (local):
