@@ -1,14 +1,20 @@
 FROM fluent/fluentd:latest
 
-USER root
-WORKDIR /
-RUN apk add --update netcat-openbsd && rm -rf /var/cache/apk/*
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+WORKDIR /home/fluent
+ENV PATH /home/fluent/.gem/ruby/2.3.0/bin:$PATH
 
-ENV PATH /home/ubuntu/ruby/bin:$PATH
-RUN gem install fluent-plugin-elasticsearch
+USER root
+RUN apk --no-cache --update add sudo build-base ruby-dev && \
+    sudo -u fluent gem install fluent-plugin-elasticsearch fluent-plugin-record-reformer && \
+    rm -rf /home/fluent/.gem/ruby/2.3.0/cache/*.gem && sudo -u fluent gem sources -c && \
+    apk del sudo build-base ruby-dev && rm -rf /var/cache/apk/*
+
+USER fluent
+
+COPY entrypoint.sh /entrypoint.sh
 
 ADD fluent.conf /fluentd/etc/fluent.conf
 
-CMD ["sh", "-c", "/entrypoint.sh"]
+VOLUME /data:/fluentd/log
+
+ENTRYPOINT [ "/entrypoint.sh" ]

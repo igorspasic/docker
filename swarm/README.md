@@ -4,12 +4,13 @@
 + Ansible
 + Consul
 + EFK
-+ Promethus
++ Promethus & cAdvisors
 + Swarm
 
 ## TODO
 
 + [ ] Prometheus targets
++ [ ] Remove `wnodes` dependecy for Prometheus targets
 + [ ] Make Kibana work (index)
 + [ ] Use [Dynamic Inventory](http://docs.ansible.com/ansible/intro_dynamic_inventory.html)
 
@@ -20,7 +21,7 @@ Optional, but recommended:
 	vagrant plugin install vagrant-cachier
 	vagrant plugin install vagrant-hostsupdater
 
-Required for Ubuntu 16.04:
+Required for Ubuntu 16.04 (not used, skip):
 
 	vagrant plugin install vagrant-vbguest
 
@@ -59,6 +60,7 @@ Once when everything is up:
 Use docker on `swarm-master` (local):
 
 	docker info
+	sudo docker -H unix:///var/run/docker.sock info
 
 Use docker on `swarm-master` (swarm):
 
@@ -71,7 +73,7 @@ Use docker on `swarm-node-1`:
 
 ### Docker service
 
-Service log: `/var/log/upstart/docker.log`
+Service log: `sudo cat /var/log/upstart/docker.log`
 
 Start service: `sudo start docker`
 

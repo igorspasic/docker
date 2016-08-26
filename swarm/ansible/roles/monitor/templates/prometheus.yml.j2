@@ -15,9 +15,18 @@ rule_files:
 scrape_configs:
 
   # Swarm
+
   - job_name: 'swarm'
     scrape_interval:  10s
     scrape_timeout:   10s
 
     consul_sd_configs:
       - server: '{{ consul_master_ip }}:8500'
+
+    static_configs:
+      - targets:
+{% for ahost in groups['wnodes'] %}
+        - {{ ahost }}:8080
+{% endfor %}
+        labels:
+          job: 'node'
