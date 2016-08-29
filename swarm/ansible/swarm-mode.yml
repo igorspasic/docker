@@ -5,8 +5,8 @@
   become: yes
   roles:
     - all
-#    - monitor
-#    - efk
+    - monitor
+    - efk
     - swarm-mode
   vars:
     - swarm_master: true
@@ -17,5 +17,5 @@
   become: yes
   roles:
     - all
-#    - monitor-node
+    - monitor-node
     - swarm-mode

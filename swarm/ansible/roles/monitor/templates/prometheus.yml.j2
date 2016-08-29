@@ -20,8 +20,8 @@ scrape_configs:
     scrape_interval:  10s
     scrape_timeout:   10s
 
-    consul_sd_configs:
-      - server: '{{ consul_master_ip }}:8500'
+#    consul_sd_configs:
+#      - server: '{{ consul_master_ip }}:8500'
 
     static_configs:
       - targets:
