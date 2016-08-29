@@ -75,11 +75,37 @@ Use docker on `swarm-node-1`:
 
 	docker -H :2375 info
 
-### Docker service
+Use docker in `swarm mode`:
+
+	docker info
+
+### Docker system service
 
 Service log: `sudo cat /var/log/upstart/docker.log`
 
 Start service: `sudo start docker`
+
+
+### Swarm mode example
+
+	$ docker network create mynet -d overlay
+	$ docker service create --name redis --network mynet redis:3
+	$ docker service ls
+	ID            NAME   REPLICAS  IMAGE    COMMAND
+	c9jen63am2gi  redis  1/1       redis:3
+
+Scale:
+
+	$ docker service update --replicas 5 redis
+	$ docker service ps redis
+
+	ID                         NAME     IMAGE    NODE          DESIRED STATE  CURRENT STATE           ERROR
+	5lx1bob284bpqentz3xi3zgrf  redis.1  redis:3  swarm-master  Running        Running 5 minutes ago
+	07bt3m66roiaqm8iz4qt77mj1  redis.2  redis:3  swarm-node-2  Running        Running 2 seconds ago
+	2bd3iws4vm0g09zseotf91ocy  redis.3  redis:3  swarm-node-1  Running        Running 6 seconds ago
+	7pfvklqlg0e62ulfaboce0f5z  redis.4  redis:3  swarm-node-1  Running        Running 6 seconds ago
+	5pgcknsowt24dtfgioch3h5de  redis.5  redis:3  swarm-master  Running        Running 32 seconds ago
+
 
 ## Issues
 
