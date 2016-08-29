@@ -2,6 +2,9 @@
 - include: dependencies.yml
   tags: ['deps']
 
+#- include: go.yml
+#  tags: ['go']
+
 - include: docker.yml
   tags: ['docker']
 

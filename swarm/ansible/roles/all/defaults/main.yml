@@ -1,0 +1,5 @@
+---
+golang_version: 1.7
+golang_os: linux
+golang_arch: amd64
+golang_path: "{{ gopath }}"

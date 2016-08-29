@@ -40,7 +40,11 @@ Now that the VMs are created, let's go inside the `swarm-master`
 
 	vagrant ssh swarm-master
 
-	ansible-playbook /vagrant/ansible/all.yml -i /vagrant/ansible/hosts/prod
+	ansible-playbook /vagrant/ansible/swarm.yml -i /vagrant/ansible/hosts/prod
+
+For **swarm mode**:
+
+	ansible-playbook /vagrant/ansible/swarm-mode.yml -i /vagrant/ansible/hosts/prod
 
 **First time only:** log out and log in to use `docker` in command line.
 

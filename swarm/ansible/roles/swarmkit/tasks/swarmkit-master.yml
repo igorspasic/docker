@@ -1,0 +1,9 @@
+
+- name: Run SwarmKit master
+  shell: "swarmd -d /tmp/swarmkit-master --listen-control-api /tmp/swarmkit/swarm.sock --hostname swarm-master &"
+
+- name: Export SWARMKIT SOCKET
+  shell: "echo 'export SWARM_SOCKET=/tmp/swarmkit/swarm.sock' > /tmp/ss.sh && . /tmp/ss.sh"
+
+- name: Export SWARMKIT PATH
+  shell: "echo 'export PATH={{ swarmkit_path }}:$PATH' >> /tmp/sk.sh && . /tmp/sk.sh"

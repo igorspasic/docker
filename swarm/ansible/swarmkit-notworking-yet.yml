@@ -10,13 +10,10 @@
   remote_user: vagrant
   become: yes
   roles:
-    - all
-    - consul
-    - monitor
-    - efk
-    - swarm
+#    - monitor
+#    - efk
+    - swarmkit
   vars:
-    - consul_master: true
     - swarm_master: true
 
 - hosts: wnodes
@@ -24,7 +21,5 @@
   remote_user: vagrant
   become: yes
   roles:
-    - all
-    - consul
-    - monitor-node
-    - swarm
+#    - monitor-node
+    - swarmkit

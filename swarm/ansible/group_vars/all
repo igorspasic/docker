@@ -3,8 +3,18 @@ host: "{{ ip }}"
 # ansible lib folder for roles
 a_lib_tasks: "../../../lib/tasks"
 
+# gopath
+gopath: "/home/{{ ansible_ssh_user }}/go"
+
 # consul master
 consul_master_ip: 10.100.7.10
 
 # fluentd
 fluentd_ip: 10.100.7.10
+
+# swarm mode
+smarm_master: 10.100.7.10
+
+# swarmkit
+swarmkit_master: 10.100.7.10
+swarmkit_path: "{{ gopath }}/src/github.com/docker/swarmkit/bin"
