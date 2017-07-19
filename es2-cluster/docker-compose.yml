@@ -1,0 +1,62 @@
+version: '2'
+
+services:
+
+  master:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: es-master
+    command: elasticsearch -Des.node.master=true -Des.node.data=false -Des.discovery.zen.minimum_master_nodes=2
+    ports:
+      - 9200:9200
+    networks:
+      - cluster
+
+  master-fo:
+    image: elasticsearch:2.2
+    container_name: es-master-fo
+    command: elasticsearch -Des.node.master=true -Des.node.data=false -Des.discovery.zen.ping.unicast.hosts=es-master -Des.discovery.zen.minimum_master_nodes=2
+    depends_on:
+      - master
+    networks:
+      - cluster
+
+  data1:
+    image: elasticsearch:2.2
+    command: elasticsearch -Des.node.master=false -Des.node.data=true -Des.discovery.zen.ping.unicast.hosts=es-master
+    depends_on:
+      - master
+    networks:
+      - cluster
+      - client
+
+  data2:
+    image: elasticsearch:2.2
+    command: elasticsearch -Des.node.master=false -Des.node.data=true -Des.discovery.zen.ping.unicast.hosts=es-master
+    depends_on:
+      - master
+    networks:
+      - cluster
+      - client
+
+  kibana:
+    image: kibana:4.4
+    environment:
+      ELASTICSEARCH_URL: http://es:9200
+    links:
+      - data1:es
+      - data2:es
+    ports:
+      - 5601:5601
+    networks:
+      - client
+    depends_on:
+      - data1
+      - data2
+
+networks:
+  cluster:
+    driver: bridge
+  client:
+    driver: bridge
