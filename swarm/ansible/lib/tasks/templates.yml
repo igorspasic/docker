@@ -1,7 +1,0 @@
-
-- name: Templates
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mode }}"
-  with_items: "{{ templates | default(templates) }}"

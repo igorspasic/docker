@@ -1,3 +1,8 @@
+# Sleeping Beauty
+
+`Sleeping Beauty` is a simple Docker container that just runs and sleeps for certain amount of time.
+
+## Usage
 
 Build docker image:
 
@@ -5,10 +10,7 @@ Build docker image:
 
 To update the image on docker hub:
 
-	login.sh
-
-and then:
-
+	docker login --username=igorspasic
 	docker push oblac/sleeping-beauty
 
-Done.
+Enjoy!

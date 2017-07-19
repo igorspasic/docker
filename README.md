@@ -1,15 +1,8 @@
-# Docker playground
+# Docker Cats
 
-... because if you have one, unicorns will come.
+![](dockercat.png)
 
-## Sleeping beauty
+... because all cats like to play with #docker.
 
-Simple image for a container that sleeps.
-
-## Swarm
-
-Swarm environment with Vagrant and Ansible.
-
-## docker-ghost
-
-Docker compose example for Ghost blogging platform on MySql.
++ [Sleeping beauty](sleeping-beauty/README.md) - simple container that just runs and sleeps.
++ [Docker Ghost](docker-ghost/README.md) - dockerized Ghost blogging platform on MySql.

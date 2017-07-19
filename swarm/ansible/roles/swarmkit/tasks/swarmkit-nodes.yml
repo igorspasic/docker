@@ -1,3 +1,0 @@
-
-- name: Run SwarmKit node
-  shell: "swarmd -d /tmp/swarkit-node --hostname swarm-node --join-addr {{ swarmkit_master }}:4242 --join-token {{ swarmkit_join_token }}"

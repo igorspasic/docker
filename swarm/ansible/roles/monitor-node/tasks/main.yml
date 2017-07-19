@@ -1,7 +1,0 @@
-
-- include: "{{ a_lib_tasks }}/files.yml"
-
-- name: Start cAdvisor
-  docker_service:
-    project_src: /ca/docker
-    files: [docker-compose-ca.yml]

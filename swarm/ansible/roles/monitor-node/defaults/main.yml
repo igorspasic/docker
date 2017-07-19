@@ -1,5 +1,0 @@
-
-files:
-  - src: "docker"
-    dest: "/ca"
-    mode: "0744"

@@ -1,7 +1,0 @@
-
-- include: "{{ a_lib_tasks }}/dirs.yml"
-
-- include: "{{ a_lib_tasks }}/files.yml"
-
-- include: efk.yml
-  tags: ['efk']

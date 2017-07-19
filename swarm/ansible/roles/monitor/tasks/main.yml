@@ -1,9 +1,0 @@
-
-- include: "{{ a_lib_tasks }}/files.yml"
-
-- include: "{{ a_lib_tasks }}/templates.yml"
-
-- name: Start Prometheus
-  docker_service:
-    project_src: /prometheus/docker
-    files: [docker-compose-prometheus.yml]
