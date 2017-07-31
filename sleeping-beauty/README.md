@@ -8,9 +8,11 @@ Build docker image:
 
 	build.sh
 
-To update the image on docker hub:
+Enjoy!
+
+## Publish
+
+To publish & update the image on docker hub:
 
 	docker login --username=igorspasic
 	docker push oblac/sleeping-beauty
-
-Enjoy!
