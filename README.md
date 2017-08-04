@@ -8,6 +8,7 @@
 
 + [Sleeping Beauty](sleeping-beauty/README.md) - simple container image that just runs and sleeps.
 + [Health Care](health-care/README.md) - simple image with HEALTHCHECK.
++ [docron](docron/README.md) - small image that runs a cron task(s).
 
 ## Examples
 
