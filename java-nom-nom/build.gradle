@@ -1,0 +1,26 @@
+group 'com.wedeploy'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "com.oblac.MemoryEater"
+
+sourceCompatibility = 1.8
+
+tasks.withType(JavaExec) {
+    jvmArgs = [
+//    		  '-Xmx1024m',
+//            '-XX:+PrintFlagsFinal',
+//            '-XX:+UnlockExperimentalVMOptions',
+//			  '-XX:+UseCGroupMemoryLimitForHeap'
+    ]
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.jodd:jodd-core:4.1.4'
+}

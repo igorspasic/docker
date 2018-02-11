@@ -14,3 +14,7 @@
 
 + [Docker Ghost](docker-ghost/README.md) - dockerized Ghost blogging platform on MySql.
 + [ES2 cluster](es2-cluster/README.md) - ElasticSearch 2 cluster
+
+## Experiments
+
++ [Java Nom Nom](java-nom-nom/README.md) - Java and memory size detection
