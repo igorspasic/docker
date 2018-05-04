@@ -1,0 +1,223 @@
+version: "3.3"
+
+networks:
+  mongo:
+    external: true
+  mongos:
+    external: true
+
+volumes:
+    data11: {}
+    data12: {}
+    data13: {}
+    data21: {}
+    data22: {}
+    data23: {}
+    cfg1: {}
+    cfg2: {}
+    cfg3: {}
+
+services:
+
+#####
+##### DATA REPLICA SERVERS (set 1)
+#####
+
+  data11:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data11:/data/db
+    command: mongod --shardsvr --replSet datars1 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data11
+
+  data12:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data12:/data/db
+    command: mongod --shardsvr --replSet datars1 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data12
+
+  data13:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data13:/data/db
+    command: mongod --shardsvr --replSet datars1 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data13
+
+#####
+##### DATA REPLICA SERVERS (set 2)
+#####
+
+  data21:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data21:/data/db
+    command: mongod --shardsvr --replSet datars2 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data21
+
+  data22:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data22:/data/db
+    command: mongod --shardsvr --replSet datars2 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data22
+
+  data23:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - data23:/data/db
+    command: mongod --shardsvr --replSet datars2 --port 27017 --nojournal --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == data23
+
+
+#####
+##### CONFIG SERVERS
+#####
+
+  cfg1:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - cfg1:/data/configdb
+    command: mongod --configsvr --replSet cfgrs --port 27017 --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == cfg1
+
+  cfg2:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - cfg2:/data/configdb
+    command: mongod --configsvr --replSet cfgrs --port 27017 --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == cfg2
+
+  cfg3:
+    image: mongo:3.6
+    networks:
+      - mongo
+    volumes:
+      - cfg3:/data/configdb
+    command: mongod --configsvr --replSet cfgrs --port 27017 --oplogSize 16 --noprealloc --smallfiles
+    deploy:
+      mode: replicated
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == cfg3
+
+
+#####
+##### ROUTERS
+#####
+
+  mongos1:
+    image: mongo:3.6
+    networks:
+      - mongo
+      - mongos
+    command: mongos --configdb cfgrs/cfg1:27017,cfg2:27017,cfg3:27017 --bind_ip_all
+    deploy:
+      mode: replicated
+      restart_policy:
+        condition: any
+        max_attempts: 20
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == mongos1
+
+  mongos2:
+    image: mongo:3.6
+    networks:
+      - mongo
+      - mongos
+    command: mongos --configdb cfgrs/cfg1:27017,cfg2:27017,cfg3:27017 --bind_ip_all
+    deploy:
+      mode: replicated
+      restart_policy:
+        condition: any
+        max_attempts: 20
+      replicas: 1
+#      placement:
+#        constraints:
+#          - node.labels.mongo.role == mongos2
+
+
+#####
+##### BOOTSTRAP
+#####
+
+  mongo-bootstrap:
+    image: mongo
+    networks:
+      - mongo
+      - mongos
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - MONGOS=mongos1
+      - MONGO_DATA_1=data11 data12 data13
+      - RS1=datars1
+      - MONGO_DATA_2=data21 data22 data23
+      - RS2=datars2
+      - MONGO_CFG=cfg1 cfg2 cfg3
+      - RS_CFG=cfgrs
+    entrypoint: [ "/scripts/bootstrap.sh" ]
+    deploy:
+      mode: replicated
+      restart_policy:
+        condition: none
+      replicas: 1

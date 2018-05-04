@@ -14,6 +14,7 @@
 
 + [Docker Ghost](docker-ghost/README.md) - dockerized Ghost blogging platform on MySql.
 + [ES2 cluster](es2-cluster/README.md) - ElasticSearch 2 cluster
++ [MongoDB cluster](mongo-cluster/README.md) - MongoDB production ready cluster
 
 ## Experiments
 
